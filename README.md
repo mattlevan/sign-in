@@ -48,8 +48,20 @@ npm test
 
 ## Architecture
 
+The stack, from the bottom-up, includes:
+- MongoDB (database)
+- NodeJS (web server and execution environment)
+- ExpressJS (API)
+- VueJS (front-end)
+
+Data is stored in the database according to defined data models, Express 
+exposes a number of API endpoints to make data CRUD easy and _safe_ for the 
+front-end, and VueJS is used for a reactive single-page application (SPA) 
+which calls the API. Of course, NodeJS is the environment in which all of 
+this is run and served.
+
 ## Plan
 
-- [ ] Non-functional analysis
-- [ ] Architecture design
+- [x] Non-functional analysis
+- [x] Architecture design
 - [ ] Test deployment
