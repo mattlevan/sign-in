@@ -4,10 +4,19 @@
 
 ## Non-functional Requirements
 
-This project utilizes the [design and tools analysis]
-(https://github.com/csudh/toro-net/wiki/non-functional-requirements)
+This project utilizes the (design and tools analysis)
+[https://github.com/csudh/toro-net/wiki/non-functional-requirements]
  performed by the class earlier this semester to save time. Thus, a MEVN stack 
-will be used for this final project. 
+will be used for this final project.  
+
+For testing, Jest will be used for unit testing technology. Detailed analysis
+may be found 
+(here)[https://mo.github.io/2017/06/05/javascript-unit-testing.html]. Jest is 
+used by the Facebook team and that is plenty good enough for me. The syntax 
+for writing "expects" tests is also intuitive and Jest is supported by the 
+`vue-cli` tool used to instantiate this project, and thus it is already 
+pre-configured and bundled.
+
 
 ## Installation
 
