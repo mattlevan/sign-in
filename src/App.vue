@@ -2,7 +2,7 @@
   <div class="container">
     <div id="app">
       </br>
-      <h1 class="text-center">Welcome to Sign In!</h1>
+      <h1 class="text-center">Welcome!</h1>
       <center>
         <router-link to="/">Sign In</router-link>
         <router-link to="admin">Admin</router-link>

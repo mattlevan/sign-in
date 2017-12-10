@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <h4>Admin</h4>
     <div v-if="!admin">
       <div class="form-group">
         <label for="password">Admin password: </label>
@@ -11,13 +12,13 @@
     <table v-if="admin" class="table table-hover">
       <thead>
         <tr>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Telephone</th>
-          <th>Company</th>
-          <th>Official Visit</th>
-          <th>Escort Required</th>
-          <th>Escort Name</th>
+          <th id="name">Name</th>
+          <th id="email">Email</th>
+          <th id="telephone">Telephone</th>
+          <th id="company">Company</th>
+          <th id="officialVisit">Official Visit</th>
+          <th id="escortRequired">Escort Required</th>
+          <th id="escortName">Escort Name</th>
         </tr>
       </thead>
       <tbody>
@@ -60,15 +61,15 @@ export default {
     getVisitors() {
       if (this.admin === true && this.retrieved === false) {
         axios.get('/api/visitors')
-        .then(res => {
+        .then((res) => {
           this.visitors = res.data;
           this.retrieved = true;
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
-        })
+        });
       }
-    }
+    },
   },
   updated() {
     this.getVisitors();
