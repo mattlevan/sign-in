@@ -1,0 +1,89 @@
+<template>
+  <div class="container">
+    <form id="sign-in" v-on:submit="signIn">
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" class="form-control" name="name" id="name"
+               v-model="name">
+      </div>
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" class="form-control" name="email" id="email"
+               v-model="email">
+      </div>
+      <div class="form-group">
+        <label for="telephone">Telephone:</label>
+        <input type="tel" class="form-control" name="telephone" id="telephone"
+               v-model="telephone">
+      </div>
+      <div class="form-group">
+        <label for="company">Company:</label>
+        <input type="text" class="form-control" name="company" id="company"
+               v-model="company">
+      </div>
+      <div class="form-check">
+        <label class="form-check-label">
+          <input type="checkbox" class="form-check-input" name="officialVisit"
+                 v-model="officialVisit">
+           Official visit
+        </label>
+      </div>
+      <div class="form-check">
+        <label class="form-check-label">
+          <input type="checkbox" class="form-check-input" name="escortRequired" 
+                 v-model="escortRequired">
+           Escort required
+        </label>
+      </div>
+      <div class="form-group" v-if="escortRequired">
+        <label for="escortName">Escort name:</label>
+        <input type="text" class="form-control" name="escortName" id="escortName"
+               v-model="escortName">
+      </div>
+      <button class="btn btn-primary" type="submit">Sign In</button>
+    </form>
+  </div>
+</template>
+
+<script>
+const axios = require('axios');
+
+export default {
+  name: 'SignIn',
+  data() {
+    return {
+      name: '',
+      email: '',
+      telephone: '',
+      company: '',
+      officialVisit: false,
+      escortRequired: false,
+      escortName: '',
+    };
+  },
+  methods: {
+    signIn() {
+      const newVisitor = {
+        name: this.name,
+        email: this.email,
+        telephone: this.telephone,
+        company: this.company,
+        officialVisit: this.officialVisit,
+        escortRequired: this.escortRequired,
+        escortName: this.escortName,
+      };
+      axios.post('/api/sign-in', newVisitor)
+      .then((res) => {
+        if (res.status === 200) {
+          alert('Sign in successful!');
+        } else {
+          alert('Sign in failed!');
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    },
+  },
+};
+</script>
