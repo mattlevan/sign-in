@@ -1,50 +1,77 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <h2>Essential Links</h2>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank">Twitter</a></li>
-      <br>
-      <li><a href="http://vuejs-templates.github.io/webpack/" target="_blank">Docs for This Template</a></li>
-    </ul>
-    <h2>Ecosystem</h2>
-    <ul>
-      <li><a href="http://router.vuejs.org/" target="_blank">vue-router</a></li>
-      <li><a href="http://vuex.vuejs.org/" target="_blank">vuex</a></li>
-      <li><a href="http://vue-loader.vuejs.org/" target="_blank">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank">awesome-vue</a></li>
-    </ul>
+  <div class="container">
+    <div v-if="!admin">
+      <div class="form-group">
+        <label for="password">Admin password: </label>
+        <input class="form-control" id="password" type="password" v-model="password"
+               @keyup.enter="signIn">
+      </div>
+      <button type="button" v-on:click="signIn" class="btn btn-primary">Submit</button>
+    </div>
+    <table v-if="admin" class="table table-hover">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Telephone</th>
+          <th>Company</th>
+          <th>Official Visit</th>
+          <th>Escort Required</th>
+          <th>Escort Name</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="visitor of visitors">
+          <td>{{ visitor.name }}</td>
+          <td>{{ visitor.email }}</td>
+          <td>{{ visitor.telephone }}</td>
+          <td>{{ visitor.company }}</td>
+          <td>{{ visitor.officialVisit }}</td>
+          <td>{{ visitor.escortRequired }}</td>
+          <td>{{ visitor.escortName }}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 
 <script>
+const axios = require('axios');
+
 export default {
-  name: 'HelloWorld',
+  name: 'SignIn',
   data() {
     return {
-      msg: 'Welcome to Your Vue.js App',
+      admin: false,
+      retrieved: false,
+      password: '',
+      visitors: {},
     };
+  },
+  methods: {
+    signIn() {
+      if (this.password === 'admin') {
+        alert('Hello, admin.');
+        this.admin = true;
+      } else {
+        alert('Wrong password!');
+      }
+    },
+    getVisitors() {
+      if (this.admin === true && this.retrieved === false) {
+        axios.get('/api/visitors')
+        .then(res => {
+          this.visitors = res.data;
+          this.retrieved = true;
+        })
+        .catch(err => {
+          console.log(err);
+        })
+      }
+    }
+  },
+  updated() {
+    this.getVisitors();
   },
 };
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h1, h2 {
-  font-weight: normal;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
-</style>

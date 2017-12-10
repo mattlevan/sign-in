@@ -26,4 +26,16 @@ router.post('/sign-in', (req, res) => {
   })
 })
 
+router.get('/visitors', (req, res) => {
+  Visitor.find({}, (err, visitors) => {
+    // var visitorMap = {}
+    // visitors.forEach((visitor) => {
+    //   visitorMap[visitor._id] = visitor
+    // })
+
+    res.send(visitors)
+  })
+
+})
+
 module.exports = router 

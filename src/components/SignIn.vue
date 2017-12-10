@@ -1,6 +1,5 @@
 <template>
   <div class="container">
-    <form id="sign-in" v-on:submit="signIn">
       <div class="form-group">
         <label for="name">Name:</label>
         <input type="text" class="form-control" name="name" id="name"
@@ -40,26 +39,31 @@
         <input type="text" class="form-control" name="escortName" id="escortName"
                v-model="escortName">
       </div>
-      <button class="btn btn-primary" type="submit">Sign In</button>
-    </form>
+      <button class="btn btn-primary" type="button" v-on:click="signIn">
+        Sign In
+      </button>
   </div>
 </template>
 
 <script>
 const axios = require('axios');
 
+function getInitialData() {
+  return {
+    name: '',
+    email: '',
+    telephone: '',
+    company: '',
+    officialVisit: false,
+    escortRequired: false,
+    escortName: '',
+  };
+}
+
 export default {
   name: 'SignIn',
   data() {
-    return {
-      name: '',
-      email: '',
-      telephone: '',
-      company: '',
-      officialVisit: false,
-      escortRequired: false,
-      escortName: '',
-    };
+    return getInitialData();
   },
   methods: {
     signIn() {
@@ -75,15 +79,26 @@ export default {
       axios.post('/api/sign-in', newVisitor)
       .then((res) => {
         if (res.status === 200) {
-          alert('Sign in successful!');
+          alert('Signed in!');
+          this.$router.go('/');
         } else {
-          alert('Sign in failed!');
+          alert('Failed.');
+          this.$router.go('/');
         }
       })
       .catch((err) => {
         console.log(err);
       });
     },
+  },
+  created() {
+    let self = this;
+    window.addEventListener('keypress', function (e) {
+      const key = e.which || e.keyCode;
+      if (key === 13) {
+        self.signIn();
+      }
+    });
   },
 };
 </script>

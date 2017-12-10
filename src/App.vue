@@ -7,6 +7,7 @@
         <router-link to="/">Sign In</router-link>
         <router-link to="admin">Admin</router-link>
       </center>
+      </br>
       <router-view/>
     </div>
   </div>
