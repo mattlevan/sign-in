@@ -64,4 +64,5 @@ this is run and served.
 
 - [x] Non-functional analysis
 - [x] Architecture design
-- [ ] Test deployment
+- [x] Test deployment
+- [x] Unit testing
